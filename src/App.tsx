@@ -1,37 +1,34 @@
-import React from 'react';
+import Gallery from './components/Gallery';
+import Greeting from './components//Greeting';
+import TitleLayout from './components//Title';
+import Location from './components//Location';
+import CongratulatoryMoney from './components//CongratulatoryMoney';
+import Configs from './configs';
+import Share from './components/Share';
 import { Layout } from 'antd';
-import './App.css';
-import Title from './Components/Title';
-import Gretting from './Components/Greeting';
-import Gallery from './Components/Gallery';
-import Location from './Components/Location';
-import CongratulatoryMoney from './Components/CongratulatoryMoney';
-import Share from './Components/Share';
-import GroovePaper from './Assets/GroovePaper.png';
 
 const { Footer } = Layout;
 
-const App = () => {
+function App() {
   return (
-    <>
-      <Title />
-      <Gretting />
-      <Gallery />
-      <Location />
-      <CongratulatoryMoney />
-      <Share />
+    <main style={{ height: '100%' }}>
+      <TitleLayout config={Configs} />
+      <Greeting config={Configs} />
+      <Gallery config={Configs} />
+      <Location config={Configs} />
+      <CongratulatoryMoney config={Configs} />
+      <Share config={Configs} />
       <Footer
         style={{
           background: '#D7CCC8',
-          backgroundImage: `url(${GroovePaper})`,
           opacity: 0.6,
           textAlign: 'center',
         }}
       >
         Copyright © 2021 KyuHyuk Lee
       </Footer>
-    </>
+    </main>
   );
-};
+}
 
 export default App;

@@ -1,73 +1,78 @@
-import React from 'react';
-import { Divider } from 'antd';
-import styled from 'styled-components';
-import {
-  GROOM_NAME,
-  GROOM_FATHER_NAME,
-  GROOM_MOTHER_NAME,
-  BRIDE_NAME,
-  BRIDE_FATHER_NAME,
-  BRIDE_MOTHER_NAME,
-} from '../Config';
-import GroovePaper from '../Assets/GroovePaper.png';
+import { useRef } from 'react';
+import { styled } from '@stitches/react';
+import useOnScreen from '../hooks/useOnScreen';
+import { ConfigsType } from '../configs';
 
-const Wrapper = styled.div`
-  background: #efebe9;
-  background-image: url(${GroovePaper});
-  padding-top: 42px;
-  padding-left: 42px;
-  padding-right: 42px;
-  width: 100%;
-`;
+const isPortrait = window.matchMedia('(orientation: portrait)').matches;
 
-const Title = styled.p`
-  font-size: 2vh;
-  font-weight: bold;
-  opacity: 0.85;
-  margin-bottom: 0;
-`;
+const Layout = styled('div', {
+  width: '100%',
+  padding: isPortrait ? '30% 0% 15% 5%' : '5% 0% 5% 10%',
+});
 
-const Content = styled.p`
-  font-size: 1.75vh;
-  line-height: 1.75;
-  opacity: 0.75;
-  margin-bottom: 16px;
-  width: 100%;
-  text-align: center;
-`;
+const Title = styled('p', {
+  color: '#795548',
+  width: '100%',
+  fontSize: isPortrait ? '2.5em' : '3.5em',
+  margin: 0,
+  fontWeight: '500',
+});
 
-const GroomBride = styled.p`
-  font-size: 1.75vh;
-  line-height: 1.75;
-  opacity: 0.85;
-  margin-bottom: 0px;
-  width: 100%;
-  text-align: center;
-`;
+const SubTitle = styled('p', {
+  color: '#795548',
+  width: '100%',
+  fontSize: isPortrait ? '1.2em' : '2em',
+  margin: '24px 0',
+  fontWeight: '300',
+  lineHeight: 1.8,
+});
 
-const Gretting = () => {
+type GreetingProps = {
+  config: ConfigsType;
+};
+
+const Greeting = ({ config }: GreetingProps) => {
+  const ref = useRef<HTMLSelectElement>(null);
+  const onScreen: boolean = useOnScreen<HTMLDivElement>(ref, '-125px');
+
   return (
-    <Wrapper>
-      <Divider style={{ marginTop: 0, marginBottom: 32 }} plain>
+    <section
+      ref={ref}
+      style={{
+        height: '100vh',
+        background: onScreen ? '#EFEBE9' : '#DADADA',
+        overflow: 'hidden',
+        position: 'relative',
+        transition: 'background 1s ease-in',
+      }}
+    >
+      <Layout>
         <Title>결혼합니다</Title>
-      </Divider>
-      <Content>
-        서로 마주 보며 다져온 사랑을
-        <br />
-        이제 함께 한곳을 바라보며 걸어갈 수 있는
-        <br />큰 사랑으로 키우고자 합니다.
-        <br />
-        저희 두 사람이 사랑의 이름으로 지켜나갈 수 있게
-        <br />
-        앞날을 축복해 주시면 감사하겠습니다.
-      </Content>
-      <GroomBride>
-        {GROOM_FATHER_NAME} · {GROOM_MOTHER_NAME}의 장남 {GROOM_NAME}
-        <br />
-        {BRIDE_FATHER_NAME} · {BRIDE_MOTHER_NAME}의 장녀 {BRIDE_NAME}
-      </GroomBride>
-    </Wrapper>
+        <SubTitle>
+          봄에 태어난 {config.bride.name}
+          <br />
+          가을에 태어난 {config.groom.name}
+          <br />
+          <br />
+          관심사도, 가치관도 달랐던 두 사람
+          <br />
+          사랑으로 닮은 꼴이 되어
+          <br />
+          인생이라는 여행을 함께 떠나려 합니다.
+          <br />
+          <br />
+          따뜻한 격려와 축복으로
+          <br />
+          힘찬 출발의 자리를 빛내주시기 바랍니다.
+          <br />
+          <br />
+          {config.groom.fatherName} · {config.groom.motherName}의 아들 {config.groom.name}
+          <br />
+          {config.bride.fatherName} · {config.bride.motherName}의 딸 {config.bride.name}
+        </SubTitle>
+      </Layout>
+    </section>
   );
 };
 
-export default Gretting;
+export default Greeting;

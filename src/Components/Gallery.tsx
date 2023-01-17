@@ -1,64 +1,58 @@
-import React from 'react';
-import ImageGallery from 'react-image-gallery';
-import { Divider } from 'antd';
-import styled from 'styled-components';
-import GalleryPhoto1 from '../Assets/Gallery_Photo_1.png';
-import GalleryPhoto2 from '../Assets/Gallery_Photo_2.png';
-import GalleryPhoto3 from '../Assets/Gallery_Photo_3.png';
-import GalleryPhoto4 from '../Assets/Gallery_Photo_4.png';
-import GalleryPhoto5 from '../Assets/Gallery_Photo_5.png';
-import GalleryPhoto6 from '../Assets/Gallery_Photo_6.png';
-import GroovePaper from '../Assets/GroovePaper.png';
+import { useRef } from 'react';
+import { styled } from '@stitches/react';
+import { Col, Image, Row } from 'antd';
+import useOnScreen from '../hooks/useOnScreen';
 
-const Wrapper = styled.div`
-  background: #efebe9;
-  background-image: url(${GroovePaper});
-  padding: 42px;
-  width: 100%;
-`;
+import { useWindowSize } from 'react-use';
+import { ConfigsType } from '../configs';
 
-const Title = styled.p`
-  font-size: 2vh;
-  font-weight: bold;
-  opacity: 0.85;
-  margin-bottom: 0;
-`;
+const isPortrait = window.matchMedia('(orientation: portrait)').matches;
 
-const images = [
-  {
-    original: GalleryPhoto1,
-    thumbnail: GalleryPhoto1,
-  },
-  {
-    original: GalleryPhoto2,
-    thumbnail: GalleryPhoto2,
-  },
-  {
-    original: GalleryPhoto3,
-    thumbnail: GalleryPhoto3,
-  },
-  {
-    original: GalleryPhoto4,
-    thumbnail: GalleryPhoto4,
-  },
-  {
-    original: GalleryPhoto5,
-    thumbnail: GalleryPhoto5,
-  },
-  {
-    original: GalleryPhoto6,
-    thumbnail: GalleryPhoto6,
-  },
-];
+const Layout = styled('div', {
+  width: '100%',
+  padding: isPortrait ? '30% 0% 15% 5%' : '5% 0% 5% 10%',
+});
 
-const Gallery = () => {
+const Title = styled('p', {
+  color: '#FFFFFF',
+  width: '100%',
+  fontSize: isPortrait ? '2.5em' : '3.5em',
+  margin: 0,
+  fontWeight: '500',
+});
+
+type GalleryProps = {
+  config: ConfigsType;
+};
+
+const Gallery = ({ config }: GalleryProps) => {
+  const { width } = useWindowSize();
+
+  const ref = useRef<HTMLSelectElement>(null);
+  const onScreen: boolean = useOnScreen<HTMLDivElement>(ref, '-125px');
+
   return (
-    <Wrapper>
-      <Divider plain style={{ marginTop: 0, marginBottom: 32 }}>
+    <section
+      ref={ref}
+      style={{
+        height: '100vh',
+        background: onScreen ? '#212121' : '#EFEBE9',
+        overflow: 'hidden',
+        position: 'relative',
+        transition: 'background 1s ease-in',
+      }}
+    >
+      <Layout>
         <Title>우리의 아름다운 순간</Title>
-      </Divider>
-      <ImageGallery showPlayButton={false} showFullscreenButton={false} items={images} />
-    </Wrapper>
+      </Layout>
+      <Row gutter={[16, 16]}>
+        {config.galleryImages.map((image, index) => (
+          <Col key={index} span={isPortrait ? 6 : 3}>
+            <Image width={isPortrait ? width / 4 - 10 : width / 8 - 10} src={image} />
+          </Col>
+        ))}
+      </Row>
+    </section>
   );
 };
 

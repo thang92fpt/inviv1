@@ -1,77 +1,86 @@
-import React from 'react';
-import styled from 'styled-components';
-import { WEDDING_DATE, WEDDING_LOCATION, GROOM_NAME, BRIDE_NAME } from '../Config';
-import BackgroundVidio from '../Assets/BackgroundVideo.mp4';
+import { styled } from '@stitches/react';
+import Confetti from 'react-confetti';
+import { useWindowSize } from 'react-use';
+import { ConfigsType } from '../configs';
 
-const Layout = styled.div`
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  margin: 0px auto;
-  position: relative;
-`;
+const isPortrait = window.matchMedia('(orientation: portrait)').matches;
 
-const TitleWrapper = styled.div`
-  position: absolute;
-  width: 100%;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  text-shadow: -1px 0 #9e9e9e, 0 1px #9e9e9e, 1px 0 #9e9e9e, 0 -1px #9e9e9e;
-  animation: fadein 3s;
-  -moz-animation: fadein 3s; /* Firefox */
-  -webkit-animation: fadein 3s; /* Safari and Chrome */
-  -o-animation: fadein 3s; /* Opera */
-`;
+const Section = styled('section', {
+  height: '100%',
+  background: '#DADADA',
+  overflow: 'hidden',
+  position: 'relative',
+});
 
-const VideoBackground = styled.video`
-  background-color: #aeb8b3 !important;
-  opacity: 0.9;
-  object-fit: cover;
-  object-position: center center;
-  width: 100%;
-  height: 100%;
-  min-height: 480px;
-`;
+const Layout = styled('div', {
+  width: '100%',
+  color: '#5D4037',
+  textAlign: 'center',
+  marginTop: '3.5%',
+  animation: 'fadein 2.5s',
+});
 
-const WeddingInvitation = styled.p`
-  font-size: 1.5vh;
-  opacity: 0.45;
-  margin-bottom: 16px;
-`;
+const TitleLayout = styled('p', {
+  width: '100%',
+  fontSize: isPortrait ? '2.5em' : '3.5em',
+  margin: 0,
+  fontWeight: '500',
+});
 
-const GroomBride = styled.p`
-  font-size: 3.5vh;
-  font-weight: bold;
-  opacity: 0.9;
-  margin-bottom: 16px;
-`;
+const SubTitleLayout = styled('p', {
+  width: '100%',
+  fontSize: isPortrait ? '1.2em' : '2em',
+  margin: '24px 0',
+  fontWeight: '300',
+});
 
-const Schedule = styled.p`
-  font-size: 2vh;
-  opacity: 0.65;
-  margin-bottom: 24px;
-`;
+const ImageLayout = styled('div', {
+  width: '100%',
+  background: '#DADADA',
+  bottom: '-5px',
+  textAlign: 'center',
+  position: 'absolute',
+});
 
-const Title = () => {
+const Image = styled('img', {
+  width: isPortrait ? '100%' : '40%',
+});
+
+type TitleProps = {
+  config: ConfigsType;
+};
+
+const Title = ({ config }: TitleProps) => {
+  const { width, height } = useWindowSize();
+
   return (
-    <Layout>
-      <VideoBackground autoPlay loop muted playsInline={true}>
-        <source src={BackgroundVidio} type="video/mp4" />
-      </VideoBackground>
-      <TitleWrapper>
-        <WeddingInvitation>WEDDING INVITATION</WeddingInvitation>
-        <GroomBride>
-          {GROOM_NAME} &#38; {BRIDE_NAME}
-        </GroomBride>
-        <Schedule>
-          {WEDDING_DATE}
-          <br />
-          {WEDDING_LOCATION}
-        </Schedule>
-      </TitleWrapper>
-    </Layout>
+    <>
+      <Confetti
+        width={width}
+        height={height}
+        numberOfPieces={300}
+        gravity={0.2}
+        colors={['#FFCDD2', '#F8BBD0', '#D1C4E9']}
+        recycle={false}
+        style={{ position: 'fixed' }}
+      />
+      <Section>
+        <Layout>
+          <SubTitleLayout>WEDDING INVITATION</SubTitleLayout>
+          <TitleLayout>
+            {config.groom.name} &amp; {config.bride.name}
+          </TitleLayout>
+          <SubTitleLayout>
+            {config.weddingDate}
+            <br />
+            {config.weddingLocation}
+          </SubTitleLayout>
+        </Layout>
+        <ImageLayout>
+          <Image src={config.titleImage} alt="Wedding Invitation Title Picutre" />
+        </ImageLayout>
+      </Section>
+    </>
   );
 };
 

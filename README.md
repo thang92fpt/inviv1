@@ -1,50 +1,46 @@
-# Wedding Invitation React.js Template
+# Getting Started with Create React App
 
-결혼식 초대를 위한 청첩장 템플릿입니다.  
-이 저장소가 마음에 들거나 사용하게 되신다면, Star와 Fork 부탁드리겠습니다😉
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Template Preview  
-![Preview](./Preview.gif)
+## Available Scripts
 
-## 템플릿에 포함하고 있는 내용 및 기능
-- 결혼식 날짜, 위치, 인사말 출력
-- 사진첩
-- 축의금을 보내실 곳 (계좌번호 클립보드 복사 기능 지원)
-- 카카오톡 공유 기능 및 링크 공유 기능
+In the project directory, you can run:
 
-## 사용 방법
+### `npm start`
 
-`./src/index.html`의 `<head>` 부분을 알맞게 수정해 주세요.  
-```html
-<meta content="○○○❤○○○ 결혼식에 초대합니다" name="Title" />
-<meta content="○○○○년 ○○월 ○○일 ○요일 오전 ○○시 ○○분" name="Description" />
-<meta content="○○○○년 ○○월 ○○일 ○요일 오전 ○○시 ○○분" name="Keyword" />
-<meta property="og:title" content="○○○❤○○○ 결혼식에 초대합니다" />
-<meta property="og:description" content="○○○○년 ○○월 ○○일 ○요일 오전 ○○시 ○○분" />
-<meta property="og:url" content="https://kyuhyuk.kr/wedding-invitation" />
-<meta name="theme-color" content="#BCAAA4" />
-```
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-`./src/Config.ts`를 수정하여 사용합니다.  
-```javascript
-export const WEDDING_INVITATION_URL = 'http://localhost:8080';
-export const KAKAOTALK_API_TOKEN = '카카오톡 API 토큰을 입력해주세요!';
-export const KAKAOTALK_SHARE_IMAGE = '카카오톡으로 공유할 때 사용되는 대표이미지 URL을 입력해주세요!';
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-export const WEDDING_DATE = '1970년 01월 01일, 목요일 오전 12시 00분';
-export const WEDDING_LOCATION = '○○○웨딩, ○층 ○○홀';
+### `npm test`
 
-export const GROOM_NAME = '○○○';
-export const GROOM_ACCOUNT_NUMBER = '○○은행 ***-***-******';
-export const GROOM_FATHER_NAME = '○○○';
-export const GROOM_FATHER_ACCOUNT_NUMBER = '○○은행 ***-***-******';
-export const GROOM_MOTHER_NAME = '○○○';
-export const GROOM_MOTHER_ACCOUNT_NUMBER = '○○은행 ***-***-******';
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-export const BRIDE_NAME = '○○○';
-export const BRIDE_ACCOUNT_NUMBER = '○○은행 ***-***-******';
-export const BRIDE_FATHER_NAME = '○○○';
-export const BRIDE_FATHER_ACCOUNT_NUMBER = '○○은행 ***-***-******';
-export const BRIDE_MOTHER_NAME = '○○○';
-export const BRIDE_MOTHER_ACCOUNT_NUMBER = '○○은행 ***-***-******';
-```
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).

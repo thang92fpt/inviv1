@@ -1,39 +1,65 @@
-import React from 'react';
-import { Divider } from 'antd';
-import styled from 'styled-components';
-import GroovePaper from '../Assets/GroovePaper.png';
-import LocationMap from '../Assets/LocationMap.png';
+import { useRef } from 'react';
+import { styled } from '@stitches/react';
+import { ConfigsType } from '../configs';
 
-const Wrapper = styled.div`
-  background: #efebe9;
-  background-image: url(${GroovePaper});
-  padding-left: 42px;
-  padding-right: 42px;
-  padding-bottom: 42px;
-  width: 100%;
-  text-align: center;
-`;
+const isPortrait = window.matchMedia('(orientation: portrait)').matches;
 
-const Title = styled.p`
-  font-size: 2vh;
-  font-weight: bold;
-  opacity: 0.85;
-  margin-bottom: 0;
-`;
+const Section = styled('section', {
+  background: '#EFEBE9',
+  overflow: 'hidden',
+  position: 'relative',
+});
 
-const Image = styled.img`
-  width: 75%;
-  max-width: 1024px;
-`;
+const Layout = styled('div', {
+  width: '100%',
+  padding: isPortrait ? '20% 0% 15% 5%' : '5% 0% 5% 10%',
+});
 
-const Location = () => {
+const Title = styled('p', {
+  color: '#795548',
+  width: '100%',
+  fontSize: isPortrait ? '2.5em' : '3.5em',
+  margin: 0,
+  fontWeight: '500',
+});
+
+const SubTitle = styled('p', {
+  color: '#795548',
+  width: '100%',
+  fontSize: isPortrait ? '1.2em' : '2em',
+  margin: '24px 0',
+  fontWeight: '300',
+  lineHeight: 1.8,
+});
+
+type LocationProps = {
+  config: ConfigsType;
+};
+
+const Location = ({ config }: LocationProps) => {
+  const ref = useRef<HTMLSelectElement>(null);
+
   return (
-    <Wrapper>
-      <Divider plain style={{ marginTop: 0, marginBottom: 32 }}>
+    <Section ref={ref}>
+      <Layout>
         <Title>오시는 길</Title>
-      </Divider>
-      <Image src={LocationMap} />
-    </Wrapper>
+        <SubTitle>
+          서울특별시 영등포구 은행로 30
+          <br />
+          <br />
+          국회의사당역 3번 출구로 나오셔서
+          <br />
+          도보로 6분 거리입니다.
+          <br />
+          <br />
+          <img
+            style={{ width: isPortrait ? '90%' : '60%' }}
+            src={config.locationMapImage}
+            alt="Wedding Invitation Title Picutre"
+          />
+        </SubTitle>
+      </Layout>
+    </Section>
   );
 };
 
